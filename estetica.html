@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Estética | Beleza e Harmonização</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ================= VARIÁVEIS DE COR E ESTILO (PALETA NUDE/ESTÉTICA) ================= */
+        :root {
+            --primary: #C5A880;        /* Nude Clássico / Dourado suave */
+            --primary-dark: #A3855E;   /* Nude escuro */
+            --secondary: #F7EFE8;      /* Fundo creme bem suave */
+            --accent: #25D366;         /* Verde WhatsApp mantido por conversão */
+            --accent-dark: #1da851;
+            --text-dark: #4A4036;      /* Marrom escuro elegante para o texto */
+            --text-light: #8A7B6E;     /* Marrom claro para texto secundário */
+            --white: #ffffff;
+            --bg-light: #FCF9F6;       /* Off-white quente */
+            --font-title: 'Poppins', sans-serif;
+            --font-text: 'Inter', sans-serif;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        /* ================= RESET GLOBAL ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-text);
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-title);
+            color: var(--text-dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* ================= SCROLL HORIZONTAL (CARROSSEL) ================= */
+        .scroll-horizontal {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 15px 5px 40px 5px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .scroll-horizontal::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-item {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+        }
+
+        .treatment-card { width: calc(25% - 22.5px); } 
+        .team-member { width: calc(33.333% - 20px); } 
+        .testimonial-card { width: calc(33.333% - 20px); } 
+
+        /* ================= TELA DE CARREGAMENTO ================= */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner-container i {
+            font-size: 5rem;
+            color: var(--primary);
+            animation: flutuar 2s ease-in-out infinite;
+        }
+
+        @keyframes flutuar {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ================= CABEÇALHO ================= */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            z-index: 1001;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-cta-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-cta-header:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            z-index: 1001;
+        }
+
+        /* ================= HERO ================= */
+        #inicio {
+            margin-top: 80px;
+            height: 85vh;
+            min-height: 600px;
+            background: linear-gradient(rgba(252, 249, 246, 0.75), rgba(252, 249, 246, 0.9)), 
+                        url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary);
+            padding: 13px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* ================= TRATAMENTOS ================= */
+        .treatment-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            height: 100%;
+        }
+
+        .treatment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .treatment-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+
+        .treatment-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        .treatment-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ================= ANTES E DEPOIS ================= */
+        #transformacao {
+            background-color: var(--secondary);
+        }
+
+        .comparison-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            aspect-ratio: 16 / 9;
+        }
+
+        .comp-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .img-after {
+            z-index: 1; 
+        }
+
+        .img-before {
+            z-index: 2; 
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+        }
+
+        .slider-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 10;
+            appearance: none;
+            -webkit-appearance: none;
+            outline: none;
+            cursor: ew-resize;
+            margin: 0;
+        }
+
+        .slider-input::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 40px;
+            height: 100vh;
+            background: transparent;
+        }
+
+        .slider-input::-moz-range-thumb {
+            width: 40px;
+            height: 100vh;
+            background: transparent;
+            border: none;
+        }
+
+        .slider-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--white);
+            z-index: 5;
+            transform: translateX(-50%);
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45px;
+            height: 45px;
+            background: var(--white);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 6;
+            pointer-events: none;
+            box-shadow: var(--shadow-md);
+            font-size: 1.2rem;
+        }
+
+        .label-comp {
+            position: absolute;
+            top: 20px;
+            padding: 5px 15px;
+            background: rgba(74, 64, 54, 0.7);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 4;
+            pointer-events: none;
+            font-weight: 500;
+        }
+        .label-antes { left: 20px; }
+        .label-depois { right: 20px; }
+
+        /* ================= A CLÍNICA ================= */
+        #clinica {
+            background-color: var(--white);
+        }
+
+        .clinic-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .clinic-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .clinic-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .clinic-gallery img:first-child {
+            grid-column: span 2;
+            height: 300px;
+        }
+
+        .clinic-gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        .clinic-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            background: var(--secondary);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+
+        .feature-item p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* ================= EQUIPE ================= */
+        .team-member {
+            text-align: center;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .member-img {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--secondary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+
+        .team-member .specialty {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .team-member .cro {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            background: var(--bg-light);
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ================= PROVA SOCIAL ================= */
+        #depoimentos {
+            background-color: var(--secondary);
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            height: 100%;
+        }
+
+        .stars {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .patient-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .patient-name i {
+            color: #4285F4;
+        }
+
+        /* ================= MARCAS/TECNOLOGIAS (ANTIGO CONVÊNIOS) ================= */
+        #lista-convenios {
+            background-color: var(--bg-light);
+            padding: 50px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .convenios-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .convenio-item {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .convenio-item:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        /* ================= CONTATO ================= */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-card {
+            display: flex;
+            gap: 15px;
+        }
+
+        .info-card i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .info-card h4 {
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+
+        .info-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .convenios {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px 15px;
+            border: 1px solid #e0d5cb;
+            border-radius: 8px;
+            font-family: var(--font-text);
+            outline: none;
+            transition: var(--transition);
+            background-color: var(--white);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.2);
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .map-container {
+            margin-top: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 350px;
+        }
+
+        /* ================= BOTÃO WHATSAPP ================= */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent);
+            color: var(--white);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: var(--accent-dark);
+        }
+
+        /* ================= RODAPÉ ================= */
+        footer {
+            background-color: #383029; /* Marrom acinzentado escuro */
+            color: var(--secondary);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #bfaea0;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: #4f443a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+            color: var(--white);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #4f443a;
+            color: #bfaea0;
+            font-size: 0.9rem;
+        }
+
+        .legal-info {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #9c8a7b;
+        }
+
+        /* ================= RESPONSIVIDADE ================= */
+        @media (max-width: 992px) {
+            .clinic-content, .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .treatment-card, .team-member, .testimonial-card {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 20px;
+                transition: var(--transition);
+                border-top: 1px solid var(--secondary);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                width: 100%;
+                padding: 15px 0;
+                font-size: 1.1rem;
+            }
+
+            .btn-cta-header {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+                margin-top: 20px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .clinic-gallery img:first-child {
+                height: 200px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-container {
+                padding: 25px 20px;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.6rem;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .treatment-card, .team-member, .testimonial-card {
+                width: 85%;
+            }
+
+            .comparison-wrapper {
+                aspect-ratio: 4 / 3;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= LOADER ================= -->
+    <div id="loader">
+        <div class="spinner-container">
+            <i class="fa-solid fa-spa"></i>
+        </div>
+    </div>
+
+    <!-- ================= HEADER ================= -->
+    <header id="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-spa"></i> Lumina Estética
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#tratamentos">Tratamentos</a></li>
+                    <li><a href="#transformacao">Resultados</a></li>
+                    <li><a href="#clinica">O Espaço</a></li>
+                    <li><a href="#equipe">Especialistas</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/5511999999999" class="btn-cta-header" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Agendar Avaliação
+            </a>
+            <div class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Realce sua <span>beleza natural</span> com tecnologia e conforto.</h1>
+                <p class="hero-subtitle">Especialistas em harmonização facial, cuidados corporais e rejuvenescimento. Uma experiência única de bem-estar para você.</p>
+                <div class="hero-buttons">
+                    <a href="#contato" class="btn-primary"><i class="fa-regular fa-calendar-check"></i> Agendar Avaliação</a>
+                    <a href="#tratamentos" class="btn-secondary">Ver Tratamentos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TRATAMENTOS (SCROLL HORIZONTAL) ================= -->
+    <section id="tratamentos">
+        <div class="container">
+            <h2 class="section-title">Nossos Protocolos</h2>
+            <p class="section-subtitle">Arraste para os lados para ver as soluções completas em estética avançada</p>
+            
+            <div class="scroll-horizontal">
+                <!-- Card 1 -->
+                <div class="treatment-card scroll-item">
+                    <div class="treatment-icon"><i class="fa-solid fa-syringe"></i></div>
+                    <h3>Harmonização Facial</h3>
+                    <p>Preenchimento labial, botox e bioestimuladores de colágeno para traços mais simétricos e joviais.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="treatment-card scroll-item">
+                    <div class="treatment-icon"><i class="fa-solid fa-sparkles"></i></div>
+                    <h3>Rejuvenescimento</h3>
+                    <p>Tecnologias a laser e microagulhamento focados em atenuar rugas, linhas de expressão e flacidez.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="treatment-card scroll-item">
+                    <div class="treatment-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <h3>Estética Corporal</h3>
+                    <p>Protocolos exclusivos para redução de medidas, celulite, estrias e tratamentos para flacidez corporal.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="treatment-card scroll-item">
+                    <div class="treatment-icon"><i class="fa-solid fa-hands-bubbles"></i></div>
+                    <h3>Limpeza de Pele</h3>
+                    <p>Renovação celular profunda com extração de cravos, peeling e super hidratação para um viço incrível.</p>
+                </div>
+                <!-- Card 5 -->
+                <div class="treatment-card scroll-item">
+                    <div class="treatment-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3>Depilação a Laser</h3>
+                    <p>Método seguro, rápido e praticamente indolor para remoção definitiva de pelos em todos os tipos de pele.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ANTES E DEPOIS ================= -->
+    <section id="transformacao">
+        <div class="container">
+            <h2 class="section-title">Resultados Reais</h2>
+            <p class="section-subtitle">Arraste a linha central para comparar o Antes e Depois dos nossos protocolos</p>
+            
+            <div class="comparison-wrapper">
+                <span class="label-comp label-antes">Antes</span>
+                <span class="label-comp label-depois">Depois</span>
+                
+                <!-- Imagem Resultado Lindo (Fundo / Depois) -->
+                <img src="bom1.jpg" alt="Pele Tratada" class="comp-img img-after">
+                
+                <!-- Imagem Antes do Tratamento (Frente / Antes) -->
+                <img src="ruim1.jpg" alt="Pele Antes" class="comp-img img-before" id="img-before">
+                
+                <!-- O Slider Invisível -->
+                <input type="range" min="0" max="100" value="50" class="slider-input" id="comp-slider">
+                
+                <!-- A linha visual divisória -->
+                <div class="slider-line" id="slider-line"></div>
+                <div class="slider-btn" id="slider-btn"><i class="fa-solid fa-arrows-left-right"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= A CLÍNICA ================= -->
+    <section id="clinica">
+        <div class="container">
+            <h2 class="section-title">Um Espaço de Refúgio</h2>
+            <p class="section-subtitle">Ambiente sofisticado e acolhedor pensado no seu bem-estar</p>
+            
+            <div class="clinic-content">
+                <div class="clinic-gallery">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Recepção da clínica de estética">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Produtos estéticos">
+                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Sala de atendimento de spa">
+                </div>
+                <div class="clinic-features">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-microchip"></i></div>
+                        <div>
+                            <h4>Tecnologia de Ponta</h4>
+                            <p>Equipamentos de última geração (Ultraformer, Lavieen) que garantem segurança e resultados superiores.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-wind"></i></div>
+                        <div>
+                            <h4>Ambiente Relaxante</h4>
+                            <p>Salas climatizadas com cromoterapia e aromaterapia, proporcionando uma experiência de SPA urbano.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                        <div>
+                            <h4>Atendimento Exclusivo</h4>
+                            <p>Protocolos individualizados criados sob medida para as necessidades específicas da sua pele e corpo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= EQUIPE (SCROLL HORIZONTAL) ================= -->
+    <section id="equipe">
+        <div class="container">
+            <h2 class="section-title">Nossos Especialistas</h2>
+            <p class="section-subtitle">Profissionais altamente qualificados para cuidar da sua beleza e autoestima</p>
+
+            <div class="scroll-horizontal">
+                <!-- Profissional 1 -->
+                <div class="team-member scroll-item">
+                    <div class="member-img">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Dra. Amanda Silva">
+                    </div>
+                    <h3>Dra. Amanda Silva</h3>
+                    <p class="specialty">Biomédica Esteta</p>
+                    <span class="cro">CRBM 12345</span>
+                </div>
+                <!-- Profissional 2 -->
+                <div class="team-member scroll-item">
+                    <div class="member-img">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Dr. Roberto Costa">
+                    </div>
+                    <h3>Dr. Roberto Costa</h3>
+                    <p class="specialty">Dermatologista Especialista em Laser</p>
+                    <span class="cro">CRM-SP 65432</span>
+                </div>
+                <!-- Profissional 3 -->
+                <div class="team-member scroll-item">
+                    <div class="member-img">
+                        <img src="https://anotabahia.com/wp-content/uploads/2024/11/anotabahia-dra-iara-lemos-dermatologista-fala-sobre-o-cenario-de-procedimentos-esteticos-e-suas-inovacoes-87420305-863509137420928-1853942634981097472-n.jpg" alt="Camila Mendes">
+                    </div>
+                    <h3>Camila Mendes</h3>
+                    <p class="specialty">Esteticista e Cosmetóloga</p>
+                    <span class="cro">Especialista Corporal</span>
+                </div>
+                 <!-- Profissional 4 -->
+                 <div class="team-member scroll-item">
+                    <div class="member-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzwM3PEvyKFHstda4-FNZdB8KaLPVGuGGhqzP09ZyUX6dUrSjsfqI9eOE&s=10" alt="Dr. Carlos Eduardo">
+                    </div>
+                    <h3>Dr. Carlos Eduardo</h3>
+                    <p class="specialty">Médico Especialista em Harmonização</p>
+                    <span class="cro">CRM-SP 34567</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PROVA SOCIAL ================= -->
+    <section id="depoimentos">
+        <div class="container">
+            <h2 class="section-title">O que dizem nossas clientes</h2>
+            <p class="section-subtitle">A satisfação de quem transformou a autoestima conosco</p>
+
+            <div class="scroll-horizontal">
+                <!-- Depoimento 1 -->
+                <div class="testimonial-card scroll-item">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Fiz meu preenchimento labial e aplicação de botox e o resultado ficou incrivelmente natural, exatamente como eu queria. A clínica é belíssima!"</p>
+                    <p class="patient-name"><i class="fa-brands fa-google"></i> Letícia Ferreira</p>
+                </div>
+                <!-- Depoimento 2 -->
+                <div class="testimonial-card scroll-item">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Os protocolos corporais da Camila são mágicos. Reduzi medidas logo nas primeiras sessões. O ambiente me passa tanta paz que chego a dormir no procedimento."</p>
+                    <p class="patient-name"><i class="fa-brands fa-google"></i> Mariana Torres</p>
+                </div>
+                <!-- Depoimento 3 -->
+                <div class="testimonial-card scroll-item">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Sempre tive medo de tratamentos a laser, mas o equipamento que eles usam na Lumina é super indolor e o Dr. Roberto é muito atencioso. Minha pele é outra!"</p>
+                    <p class="patient-name"><i class="fa-brands fa-google"></i> Fernanda Lima</p>
+                </div>
+                <!-- Depoimento 4 -->
+                <div class="testimonial-card scroll-item">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Nunca fui tão bem tratada. Um cuidado impressionante do início ao fim. Avaliação super sincera que respeitou meus traços naturais."</p>
+                    <p class="patient-name"><i class="fa-brands fa-google"></i> Roberta Alves</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MARCAS E TECNOLOGIAS ================= -->
+    <section id="lista-convenios">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 2rem;">Tecnologias e Produtos Premium</h2>
+            <p class="section-subtitle" style="margin-bottom: 20px;">Trabalhamos exclusivamente com as marcas mais conceituadas do mundo</p>
+            <div class="convenios-wrapper">
+                <div class="convenio-item">Botox® (Allergan)</div>
+                <div class="convenio-item">Restylane®</div>
+                <div class="convenio-item">Sculptra®</div>
+                <div class="convenio-item">Radiesse®</div>
+                <div class="convenio-item">Ultraformer MPT</div>
+                <div class="convenio-item">Laser Lavieen</div>
+                <div class="convenio-item">Galderma</div>
+                <div class="convenio-item">Morpheus8</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CONTATO ================= -->
+    <section id="contato">
+        <div class="container">
+            <h2 class="section-title">Agende sua Avaliação</h2>
+            <p class="section-subtitle">Dê o primeiro passo para resgatar sua melhor versão</p>
+
+            <div class="contact-container">
+                <div>
+                    <form class="contact-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" placeholder="Digite seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Telefone / WhatsApp</label>
+                            <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="servico">Área de Interesse</label>
+                            <select id="servico" required>
+                                <option value="" disabled selected>Selecione uma opção</option>
+                                <option value="harmonizacao">Harmonização Facial / Preenchedores</option>
+                                <option value="pele">Rejuvenescimento / Limpeza de Pele</option>
+                                <option value="corporal">Estética Corporal / Redução de Medidas</option>
+                                <option value="laser">Depilação a Laser</option>
+                                <option value="geral">Quero uma avaliação completa</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar Solicitação</button>
+                    </form>
+
+                    <div class="convenios">
+                        <p style="font-weight: 600; color: var(--primary-dark); margin-bottom: 5px;">
+                            <i class="fa-solid fa-gift" style="color: var(--primary);"></i> Avaliação Personalizada
+                        </p>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">
+                            Nossa consulta conta com mapeamento facial e corporal avançado para criar um plano de tratamento perfeitamente desenhado para os seus objetivos estéticos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info-card">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Localização</h4>
+                            <p>Av. Paulista, 1000 - Bela Vista<br>São Paulo - SP</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-clock"></i>
+                        <div>
+                            <h4>Horário de Funcionamento</h4>
+                            <p>Segunda a Sexta: 08:00 às 19:00<br>Sábados: 08:00 às 13:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.106696296001!2d-46.65421598502219!3d-23.56461118468165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1680000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= BOTÃO WHATSAPP ================= -->
+    <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank" title="Fale conosco pelo WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fa-solid fa-spa"></i> Lumina
+                    </div>
+                    <p style="color: #bfaea0; font-size: 0.9rem; margin-bottom: 20px;">
+                        Realçando sua beleza natural com protocolos exclusivos, ciência, tecnologia avançada e atendimento humanizado.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Links Úteis</h4>
+                    <div class="footer-links">
+                        <a href="#inicio">Início</a>
+                        <a href="#tratamentos">Nossos Protocolos</a>
+                        <a href="#transformacao">Resultados Reais</a>
+                        <a href="#clinica">O Espaço</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <div class="footer-links" style="color: #bfaea0; font-size: 0.9rem;">
+                        <p><i class="fa-solid fa-phone" style="margin-right: 10px;"></i> (11) 3000-0000</p>
+                        <p><i class="fa-brands fa-whatsapp" style="margin-right: 10px;"></i> (11) 99999-9999</p>
+                        <p><i class="fa-solid fa-envelope" style="margin-right: 10px;"></i> contato@luminaestetica.com.br</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Lumina Estética Avançada. Todos os direitos reservados.</p>
+                <p class="legal-info">
+                    Responsável Técnica: Dra. Amanda Silva | CRBM 12345 <br>
+                    As informações contidas neste site têm caráter informativo e educacional sobre saúde estética.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // 1. Lógica do Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            }, 1000); 
+        });
+        document.body.style.overflow = 'hidden';
+
+        // 2. Lógica do Menu Mobile
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.replace('fa-bars', 'fa-xmark');
+                } else {
+                    icon.classList.replace('fa-xmark', 'fa-bars');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+                });
+            });
+        }
+
+        // 3. Efeito no Header ao rolar
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                header.style.height = '70px';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+            } else {
+                header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05)';
+                header.style.height = '80px';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            }
+        });
+
+        // 4. LÓGICA DO SLIDER ANTES E DEPOIS
+        const sliderInput = document.getElementById('comp-slider');
+        const imgBefore = document.getElementById('img-before');
+        const sliderLine = document.getElementById('slider-line');
+        const sliderBtn = document.getElementById('slider-btn');
+
+        sliderInput.addEventListener('input', (e) => {
+            const sliderValue = e.target.value + '%';
+            
+            // Usa clip-path para "cortar" a imagem frontal e revelar a do fundo
+            imgBefore.style.clipPath = `polygon(0 0, ${sliderValue} 0, ${sliderValue} 100%, 0 100%)`;
+            
+            // Move a linha e o botão do meio
+            sliderLine.style.left = sliderValue;
+            sliderBtn.style.left = sliderValue;
+        });
+    </script>
+</body>
+</html>
